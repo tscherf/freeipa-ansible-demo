@@ -1,0 +1,41 @@
+---
+all:
+  children:
+    ipacluster:
+      children:
+        ipaserver:
+        ipareplicas:
+        ipaclients:
+      vars:
+        ipaserver_domain: example.com
+        ipaserver_realm: EXAMPLE.COM
+        ipadm_password: "{{ ipa_dm_password }}"
+        ipaadmin_password: "{{ ipa_admin_password }}"
+    # IPA First Server (CA Renewal)
+    ipaserver:
+      hosts:
+        server.example.com:
+      vars:
+        ipaserver_setup_kra: true
+        ipaserver_setup_dns: true
+        ipaserver_forwarders: 1.1.1.1
+        ipaserver_auto_reverse: true
+    # IPA Replica Servers
+    ipareplicas:
+      hosts:
+        replica.example.com:
+      vars:
+        ipasssd_enable_dns_updates: true
+        ipaclient_configure_dns_resolver: true
+        ipaclient_dns_servers:
+          - 10.6.120.82
+    # IPA Client hosts
+    ipaclients:
+      hosts:
+        client.example.com:
+      vars:
+        ipaclient_mkhomedir: true
+        ipasssd_enable_dns_updates: true
+        ipaclient_configure_dns_resolver: true
+        ipaclient_dns_servers:
+          - 10.6.120.82

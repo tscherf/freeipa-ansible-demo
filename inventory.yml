@@ -11,6 +11,7 @@ all:
         ipaserver_realm: EXAMPLE.COM
         ipadm_password: "{{ ipa_dm_password }}"
         ipaadmin_password: "{{ ipa_admin_password }}"
+        ansible_user: root
     # IPA First Server (CA Renewal)
     ipaserver:
       hosts:

@@ -1,0 +1,18 @@
+---
+- name: Playbook to handle users
+  hosts: ipaserver
+
+#  vars_files:
+#  - /home/user_name/MyPlaybooks/secret.yml
+  tasks:
+  - name: Create user idm_user
+    freeipa.ansible_freeipa.ipauser:
+      ipaadmin_password: "{{ ipa_admin_password }}"
+      name: tuser
+      first: Test
+      last: User
+      phone: "+555123457"
+      email: tscherf@redhat.com
+      passwordexpiration: "2029-01-19 23:59:59"
+      password: "Secret123"
+      update_password: on_create

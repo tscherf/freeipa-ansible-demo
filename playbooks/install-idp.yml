@@ -1,0 +1,15 @@
+---
+- name: Configure external IdP
+  hosts: ipaserver
+  become: false
+  gather_facts: false
+
+  tasks:
+  - name: Ensure a reference to github external provider is available
+    freeipa.ansible_freeipa.ipaidp:
+      ipaadmin_password: "{{ ipa_admin_password }}"
+      name: github_idp
+      provider: github
+      client_id: Iv23li54JMwPcgf0KH2B
+      secret: 6df2adf93ece7e9339dbf3a7573e2f48ab0c22ed
+      idp_user_id: 'id'
